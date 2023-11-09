@@ -20,13 +20,21 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
         $dbUsername = "root";
         $dbPassword = "test";
         $dbName = "users";
-        $conn = new PDO("mysql:host=$host;dbname=$dbName", $dbUsername, $dbPassword);
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Conexión a DB
+        $conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
 
-        $statement = $conn->prepare('SELECT * FROM usuarios WHERE username = :username AND password = :password LIMIT 1');
-        $statement->execute(array(':username' => $usuario, ':password' => $password));
-        $resultado = $statement->fetch();
+        // Comprobación de errores
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $statement = $conn->prepare('SELECT * FROM usuarios WHERE username = ? AND password = ? LIMIT 1');
+        $statement->bind_param("ss", $usuario, $password);
+        $statement->execute();
+        $result = $statement->get_result();
+        $resultado = $result->fetch_assoc();
+
+
         if ($resultado) {
             $_SESSION['usuario'] = $usuario;
             header('Location: contenido.php');

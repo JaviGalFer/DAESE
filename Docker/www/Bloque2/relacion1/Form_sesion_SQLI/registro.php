@@ -9,6 +9,9 @@
  * 
  */
 
+
+$mensajeError = "";
+
 if (isset($_POST['usuario']) && ($_POST['password']) && isset($_POST['password2'])){
 
     $usuario = $_POST['usuario'];
@@ -21,12 +24,19 @@ if (isset($_POST['usuario']) && ($_POST['password']) && isset($_POST['password2'
             $dbUsername = "root";
             $dbPassword = "test";
             $dbName = "users";
-            $conn = new PDO("mysql:host=$host;dbname=$dbName", $dbUsername, $dbPassword);
-            //set the PDO error mode to exception
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $statement = $conn->prepare('SELECT * FROM usuarios WHERE username = :username LIMIT 1');
-            $statement->execute(array(':username' => $usuario));
-            $resultado = $statement->fetch();
+            $conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
+
+            //Verificamos la conexión
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+
+            $statement = $conn->prepare('SELECT * FROM usuarios WHERE username = ? LIMIT 1');
+            $statement->bind_param("s", $usuario);
+            $statement->execute();
+            $result = $statement->get_result();
+            $resultado = $result->fetch_assoc();
 
             if ($resultado) {
                 // echo "el usuario ya existe";
@@ -34,35 +44,23 @@ if (isset($_POST['usuario']) && ($_POST['password']) && isset($_POST['password2'
                 echo "<script>window.location = 'login.php';</script>";
             } else {
                 //guardo en BD el usuario
-                $statement = $conn->prepare('INSERT INTO usuarios(username, password) values (:username, :pass)');
-                $statement->execute(array(
-                    ':username' => $usuario,
-                    ':pass' => $password
-                ));
+                $statement = $conn->prepare('INSERT INTO usuarios(username, password) values (?, ?)');
+                $statement->bind_param("ss", $usuario, $password);
+                $statement->execute();
             }
 
-
-            /****************************
-            $conexion = mysqli_connect('db', 'root', 'test', "usuarios");
-            $query = 'SELECT * From usuarios';
-            $result = mysqli_query($conexion, $query);
-
-            while ($value = $result->fetch_array(MYSQLI_ASSOC)) {
-                foreach ($value as $element) {
-                    echo $element ;
-                }
-            }
-            
-            */
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
+        $statement->close();
+        $conn->close();
         header("Location: login.php");
     } else {
-        echo "usuario incorrecto";
+        // echo "La contraseña no coincide.";
+        $mensajeError = "La contraseña no coinciden";
     }
 } else {
-   // $errores .= '<li>Rellena todos los datos correctamente</li>';
+    //$errores .= '<li>Rellena todos los datos correctamente</li>';
 }
 
 require 'views/registro.view.php';

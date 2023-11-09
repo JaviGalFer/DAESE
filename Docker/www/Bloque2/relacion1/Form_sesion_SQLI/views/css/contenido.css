@@ -2,6 +2,7 @@
 
 body {
     font-family: Arial, sans-serif;
+    background-color: rgb(176, 226, 210);
     display: flex;
     justify-content: center;
     align-items: center;

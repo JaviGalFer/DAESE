@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="./views/css/registro.css">
 </head>
 <body>
-    <div class="container">
-        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" name="login">
+    <!-- <div class="form-container"> -->
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" name="login">
             <input type="text" name="usuario" placeholder="Usuario">
             <input type="password" name="password" placeholder="Password">
             <input type="password" name="password2" placeholder="Repite Password">
@@ -19,10 +19,11 @@
             echo "<p class='error-message'>$mensajeError</p>";
         }
         ?>
-    </div>
-    <div class="bottom-content">
+    <!-- </div> -->
+    <!-- <div class="bottom-content"> -->
         <p>¿Tienes cuenta?</p>
         <a href="login.php">Inicia sesión</a>
-    </div>
+    <!-- </div> -->
+
 </body>
 </html>

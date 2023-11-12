@@ -49,7 +49,7 @@ if (isset($_POST['usuario']) && ($_POST['password']) && isset($_POST['password2'
                 $statement->execute();
             }
 
-        } catch (PDOException $e) {
+        } catch (mysqli_sql_exception $e) {
             echo "Error: " . $e->getMessage();
         }
         $statement->close();

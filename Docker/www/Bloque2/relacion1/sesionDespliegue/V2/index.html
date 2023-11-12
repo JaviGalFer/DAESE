@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>Inicio de Sesión</title>
+</head>
+<body>
+    <form action="php/login.php" method="post">
+        <h2>Login</h2>
+        <input type="text" name="username" placeholder="Usuario">
+        <input type="password" name="password" placeholder="Contraseña"><br>
+        <label for="loginType">¿BDD O ARRAY?</label><br>
+        <select id="loginType" name="loginType">
+            <option value="database">Base de Datos</option>
+            <option value="array">Array</option>
+        </select><br><br>
+        <input type="submit" value="Iniciar Sesión"><br>
+        <p>¿No tienes cuenta?</p>
+        <a href="registro.html">Registrate</a>
+    </form>
+    
+</body>
+</html>

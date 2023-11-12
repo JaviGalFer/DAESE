@@ -42,7 +42,7 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
             echo "<script>alert('Usuario o contraseña incorrecto.');</script>";
             echo "<script>window.location = 'login.php';</script>";
         }
-    } catch (PDOException $e) {
+    } catch (mysqli_sql_exception $e) {
         echo "Error: " . $e->getMessage();
     }
 }

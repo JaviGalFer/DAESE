@@ -44,7 +44,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['logi
                 echo "<script>alert('Usuario o contraseña incorrecto.');</script>";
                 echo "<script>window.location = '../index.html';</script>";
             }
-        }else{
+        }elseif ($loginType == "array"){
 
             if (in_array($username, $usuarios) && in_array(hash('sha512', $_POST['password']), $passwords)) {
                 $_SESSION['username'] = $username;
@@ -54,6 +54,10 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['logi
                 echo "<script>alert('Usuario o contraseña incorrectos.');</script>";
                 echo "<script>window.location = '../index.html';</script>";
             }
+        }else{
+            echo "<script>alert('Selecciona el tipo de conexión.');</script>";
+            header('Location: ../index.html');
+            exit();
         }
         
     }catch(mysqli_sql_exception $e){

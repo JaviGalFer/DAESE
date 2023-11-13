@@ -1,5 +1,6 @@
 <?php
 /**
+ * MiniJuego de cartas
  * @author Fco Javier Gallego Fernández
  */
 session_start();

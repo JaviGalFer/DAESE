@@ -1,5 +1,6 @@
 <?php
 /**
+ * Página para reiniciar el MiniJuego de cartas
  * @author Fco Javier Gallego Fernández
  */
 session_start();

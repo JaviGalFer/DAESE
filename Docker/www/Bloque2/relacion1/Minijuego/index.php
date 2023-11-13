@@ -40,6 +40,7 @@ if ($_SESSION['carta_jugador1'] > $_SESSION['carta_jugador2']) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minijuego de Cartas</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 

@@ -16,30 +16,32 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['logi
     $loginType = $_POST['loginType'];
 
     try{
-        //Datos de la DB
-        $host = "db";
-        $dbUsername = "root";
-        $dbPassword = "test";
-        $dbName = "users";
-
-        //Hacemos la conexión a la DB
-        $conn = new PDO("mysql:host=$host;dbname=$dbName", $dbUsername, $dbPassword);
-
-
-        //Comprobación de errores
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 
         if($loginType == "database"){
+            //Datos de la DB
+            $host = "mydatabase-javi.c1pe6tuhpgsv.us-east-1.rds.amazonaws.com";
+            $dbUsername = "admin";
+            $dbPassword = "Lolazo619.";
+            $dbName = "bddjavi";
+
+            //Hacemos la conexión a la DB
+            $conn = new PDO("mysql:host=$host;dbname=$dbName", $dbUsername, $dbPassword);
+
+
+            //Comprobación de errores
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
             //Hacemos la consulta a la DB
-            $statement = $conn->prepare('SELECT * FROM usuarios WHERE username = :username AND Password = :password LIMIT 1');
+            $statement = $conn->prepare('SELECT * FROM usuarios WHERE username = :username AND password = :password LIMIT 1');
+            
             
             $statement->execute(array(':username' => $username, ':password' => $password));
 
             $resultado = $statement->fetch();
+
             if ($resultado) {
                 $_SESSION['username'] = $username;
-                header('Location: ../logueado.html');
+                header('Location: ../logueado.php');
             }else {
                 echo "<script>alert('Usuario o contraseña incorrecto.');</script>";
                 echo "<script>window.location = '../index.html';</script>";
@@ -48,7 +50,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['logi
 
             if (in_array($username, $usuarios) && in_array(hash('sha512', $_POST['password']), $passwords)) {
                 $_SESSION['username'] = $username;
-                header('Location: ../logueado.html');
+                header('Location: ../logueado.php');
             } else {
                 // echo "Usuario o contraseña incorrectos.";
                 echo "<script>alert('Usuario o contraseña incorrectos.');</script>";
@@ -60,7 +62,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['logi
             exit();
         }
         
-    }catch(mysqli_sql_exception $e){
+    }catch(PDOException $e){
         echo "Error: " . $e->getMessage();
     }
 

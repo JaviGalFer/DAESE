@@ -39,7 +39,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['logi
 
             if ($resultado) {
                 $_SESSION['username'] = $username;
-                header('Location: ../logueado.html');
+                header('Location: ../logueado.php');
             }else {
                 echo "<script>alert('Usuario o contraseña incorrecto.');</script>";
                 echo "<script>window.location = '../index.html';</script>";
@@ -48,7 +48,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['logi
 
             if (in_array($username, $usuarios) && in_array(hash('sha512', $_POST['password']), $passwords)) {
                 $_SESSION['username'] = $username;
-                header('Location: ../logueado.html');
+                header('Location: ../logueado.php');
             } else {
                 // echo "Usuario o contraseña incorrectos.";
                 echo "<script>alert('Usuario o contraseña incorrectos.');</script>";

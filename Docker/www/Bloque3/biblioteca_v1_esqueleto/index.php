@@ -25,6 +25,10 @@
 
     // Conectamos a la base de datos
     $db = new mysqli("db", "root", "test", "biblioteca");
+    //Comprobación de errores
+    if ($db->connect_error) {
+        die("Connection failed: " . $db->connect_error);
+    }  
 
     if ($action == "mostrarListaLibros") {
         mostrarListaLibros();
@@ -178,13 +182,6 @@
             $result = $db->query("SELECT MAX(idLibro) AS ultimoIdLibro FROM libros");
             $idLibro = $result->fetch_assoc()['ultimoIdLibro'];
 
-            // Ya podemos insertar todos los autores junto con el libro en "escriben"
-            // if (isset($_GET['autores'])) {
-            //     foreach ($_GET['autores'] as $idAutor) {
-            //         $db->query("INSERT INTO escriben (idLibro, idAutor) VALUES ('$idLibro', '$idAutor')");
-            //     }
-            // }
-            
             // Ya podemos insertar todos los autores junto con el libro en "escriben"
             // if (isset($_GET['autores']) && is_array($_GET['autores']) && !empty($_GET['autores'])) {
                 foreach ($autores as $idAutor) {

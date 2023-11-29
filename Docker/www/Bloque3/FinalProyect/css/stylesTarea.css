@@ -1,0 +1,87 @@
+/* Estilos para index.html */
+
+body {
+    font-family: Arial, sans-serif;
+    color: #616161;
+    background-color: rgb(176, 226, 210);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 50%;
+    background-color: rgb(192, 229, 218);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #4caf93;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+}
+
+th {
+    background-color: #4caf93;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: #4CAF50;
+}
+
+
+.logout-link {
+    display: block;
+    color: #fff;
+    background-color: rgb(112, 218, 184);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.logout-link:hover {
+    background-color: rgb(82, 163, 137);
+}
+
+.action-link {
+    white-space: inline-block;
+    margin-right: 10px; 
+    text-align: center;
+    color: #fff;
+    background-color: rgb(112, 218, 184);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.action-link:hover{
+    background-color: rgb(82, 163, 137);
+}

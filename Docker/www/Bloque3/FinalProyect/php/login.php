@@ -25,6 +25,7 @@ if (isset($_POST['username']) && isset($_POST['password'])){
 
         if ($resultado) {
             $_SESSION['username'] = $username;
+            $_SESSION['userId'] = $resultado['id'];
             header('Location: ../logueado.php');
         }else {
             echo "<script>alert('Usuario o contraseña incorrecto.');</script>";

@@ -11,14 +11,14 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/stylesForm.css">
+    <link rel="stylesheet" type="text/css" href="../css/stylesMod.css">
     <title>Formulario de Tarea</title>
 </head>
 <body>
     <div class="container">
-        <h1><?php echo strtoupper($_SESSION['username']); ?></h1>
-        <h2>Añadir Tarea</h2>
         <form action="añadirTarea.php" method="post">
+            <h1><?php echo strtoupper($_SESSION['username']); ?></h1>
+            <h2>Añadir Tarea</h2>
             <label for="titulo">Título:</label>
             <input type="text" id="titulo" name="titulo" required><br>
 
@@ -26,6 +26,7 @@ session_start();
             <textarea id="descripcion" name="descripcion" required></textarea><br>
 
             <input type="submit" value="Añadir Tarea">
+            <a href="tareas.php" class="action-link">Volver</a>
         </form>
     </div>
 </body>

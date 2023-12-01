@@ -1,0 +1,72 @@
+/* stylesLog.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(176, 226, 210);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    /* background-color: rgb(213, 243, 233); */
+    background-color: rgb(191, 242, 225);
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+h1 {
+    color: #333;
+}
+
+p {
+    color: #666;
+}
+
+.logout-link {
+    display: block;
+    color: #fff;
+    background-color: rgb(112, 218, 184);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.logout-link:hover {
+    background-color: rgb(82, 163, 137);
+}
+
+.details-box {
+    /* background-color: rgb(191, 242, 225); */
+    background-color: rgb(213, 243, 233);
+    /* border: 2px solid #333; */
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+    max-width: 600px; 
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;;
+    word-wrap: break-word;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.details-box h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.details-box p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 10px;
+}

@@ -1,10 +1,9 @@
 <?php
-/**
- * En esta página se encuentra el código necesario para cerrar la sesión y eliminar la información que haya almacenada en la sesión.
- * 
- * Autor: Francisco Javier Gallego Fernández
- * 
- */
+/** 
+* Autor: Francisco Javier Gallego Fernández
+* Arhivo: cerrarSesion.php
+* En esta página se encuentra el código necesario para cerrar la sesión y eliminar la información que haya almacenada en la sesión.
+*/
 
 session_start();
 

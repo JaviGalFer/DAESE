@@ -46,13 +46,13 @@ if(isset($_POST['titulo']) && isset($_POST['descripcion']) && isset($_POST['tare
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/stylesLog.css">
     <title>Tarea modificada</title>
 </head>
 <body>
     <div class="container">
         <h2>Tarea <?php echo $tareaInfo['titulo']?> modificada con exito</h2>
-        <a href="tareas.php" class="view-tasks-button">Ver Tareas</a>
+        <a href="tareas.php" class="logout-link">Ver Tareas</a>
         <a href="php/cerrarSesion.php" class="logout-link">Cerrar sesión</a>
     </div>
 </body>

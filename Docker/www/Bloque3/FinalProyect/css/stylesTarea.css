@@ -24,6 +24,15 @@ body {
     margin-bottom: 20px;
 }
 
+hr {
+    background-color: #4caf93; /* Color de fondo de la línea */
+    border: none; /* Elimina el borde para evitar que aparezca una línea adicional */
+    height: 2px; /* Ajusta el grosor de la línea según tus preferencias */
+    margin: 20px 0; /* Ajusta el margen según tus preferencias */
+    width: 100%;
+}
+
+
 h1, h2 {
     text-align: center;
 }
@@ -63,10 +72,18 @@ a {
     padding: 10px 20px;
     text-decoration: none;
     margin-top: 20px;
+    margin: 0;
 }
 
 .logout-link:hover {
     background-color: rgb(82, 163, 137);
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
 }
 
 .action-link {

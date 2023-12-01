@@ -1,7 +1,8 @@
 <?php
 /** 
 * Autor: Francisco Javier Gallego Fernández
-* 
+* Arhivo: borrarTarea.php
+* Borrar una tarea de la DB
 */
 //Incluimos el connect a la DB
 include 'db_connect.php';
@@ -23,8 +24,6 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
     $stmtInfo->execute();
     $tarea_info = $stmtInfo->fetch();
 
-    
-
     //Hacemos el borrado de la relación de la tarea con el usuario
     $queryRelacional = "DELETE FROM usuarios_tarea WHERE tarea = :tareaId";
     $stmtRelacional = $conn->prepare($queryRelacional);
@@ -37,7 +36,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
     $stmtDelete->bindParam(':tareaId', $tareaId);
     $stmtDelete->execute();
 
-    $conn = null;
+    $conn = null; //Cerramos la conexión a la DB
 }else {
     // header("Location: tareas.php");
     echo "<script>alert('Error.');</script>";
@@ -52,13 +51,13 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/stylesLog.css">
     <title>Tarea borrada</title>
 </head>
 <body>
     <div class="container">
         <h2>Tarea <?php echo $tarea_info['titulo']?> borrada correctamente</h2>
-        <a href="tareas.php" class="view-tasks-button">Ver Tareas</a>
+        <a href="tareas.php" class="logout-link">Ver Tareas</a>
         <a href="php/cerrarSesion.php" class="logout-link">Cerrar sesión</a>
     </div>
 </body>

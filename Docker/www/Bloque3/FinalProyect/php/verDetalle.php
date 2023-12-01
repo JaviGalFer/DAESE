@@ -13,8 +13,7 @@ $username = $_SESSION['username'];
 $userId = $_SESSION['userId'];
 
 if(isset($_GET['id']) && is_numeric($_GET['id'])){
-    // $tareaId = $_GET['id'];
-    $tareaId = urldecode($_GET['id']);
+    $tareaId = $_GET['id'];
 
     //Hacemos la consulta para obtener los datos de la tarea y así usarla a posterior
     $queryInfo = "SELECT * FROM tarea WHERE id = :tareaId";
@@ -51,25 +50,23 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/stylesMod.css">
-    <title>Formulario Modificar Tarea</title>
+    <link rel="stylesheet" type="text/css" href="../css/stylesDet.css">
+    <title>Formulario ver Tarea</title>
 </head>
 <body>
     <div class="container">
-        <form action="modificarTarea.php" method="post">
-            <h1><?php echo strtoupper($_SESSION['username']); ?></h1>
-            <h2>Modificar Tarea '<?php echo $tareaInfo['titulo']; ?>'</h2>
-            <input type="hidden" name="tareaId" value="<?php echo $tareaId; ?>">
-
-            <label for="titulo">Nuevo Título</label>
-            <input type="text" id="titulo" name="titulo" value="<?php echo $tareaInfo['titulo']; ?>" maxlength="20" required><br>
-
-            <label for="descripcion">Nueva Descripción</label>
-            <textarea id="descripcion" name="descripcion" maxlength="200" required><?php echo $tareaInfo['descripcion']; ?></textarea><br>
-
-            <input type="submit" value="Actualizar">
-            <a href="tareas.php" class="action-link">Volver</a>
-        </form>
+        <h1><?php echo strtoupper($_SESSION['username']); ?></h1>
+        <hr>
+        <br>
+        <h2>Título de la tarea</h2>
+        <div class="details-box">
+            <h2><?php echo $tareaInfo['titulo']; ?></h2>
+        </div>
+        <h2>Descripción</h2>
+        <div class="details-box">
+            <p><strong></strong> <?php echo $tareaInfo['descripcion']; ?></p>
+        </div>
+        <a href="tareas.php" class="logout-link">Volver</a>
     </div>
 </body>
 </html>

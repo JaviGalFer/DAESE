@@ -20,10 +20,10 @@ session_start();
             <h1><?php echo strtoupper($_SESSION['username']); ?></h1>
             <h2>Añadir Tarea</h2>
             <label for="titulo">Título:</label>
-            <input type="text" id="titulo" name="titulo" required><br>
+            <input type="text" id="titulo" name="titulo" maxlength="20" required><br>
 
             <label for="descripcion">Descripción:</label>
-            <textarea id="descripcion" name="descripcion" required></textarea><br>
+            <textarea id="descripcion" name="descripcion" maxlength="200" required></textarea><br>
 
             <input type="submit" value="Añadir Tarea">
             <a href="tareas.php" class="action-link">Volver</a>

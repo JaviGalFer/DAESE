@@ -6,23 +6,25 @@
 //Incluimos el connect a la DB
 include 'db_connect.php';
 
+//Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
 
+//Variables de la sesión para almacenar los datos
 $username = $_SESSION['username'];
 $userId = $_SESSION['userId'];
 
-// Consultar las tareas del usuario actual
+// Consulta de las tareas del usuario actual
 $query = "SELECT tarea.id, tarea.titulo, tarea.descripcion FROM tarea
             JOIN usuarios_tarea ON tarea.id = usuarios_tarea.tarea
             JOIN usuarios ON usuarios_tarea.usuario = usuarios.id
             WHERE usuarios.usuario = :username";
-
+//Ejecutamos la consulta
 $stmt = $conn->prepare($query);
 $stmt->bindParam(':username', $username);
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$conn = null; // Cerrar la conexión
+$conn = null; // Cerramos la conexión
 
 ?>
 
@@ -37,6 +39,7 @@ $conn = null; // Cerrar la conexión
 <body>
     <div class="container">
         <h1><?php echo strtoupper($_SESSION['username']); ?></h1>
+        <hr>
         <h2>Tus tareas</h2>
         <?php if (!empty($result)): ?>
             <!-- La consulta ha devuelto registros: vamos a mostrarlos -->
@@ -52,11 +55,24 @@ $conn = null; // Cerrar la conexión
                     <tr>
                         <td><?php echo $row["id"]; ?></td>
                         <td><?php echo $row["titulo"]; ?></td>
-                        <td><?php echo $row["descripcion"]; ?></td>
+                        <td>
+                            <!-- <?php echo $row["descripcion"]; ?> -->
+                            <?php
+                                $descripcion = $row["descripcion"];
+                                if (strlen($descripcion) > 15) {
+                                    $descripcion = substr($descripcion, 0, 15) . '...';
+                                    echo $descripcion;
+                                    // echo '<a href="verDetalle.php?id=' . $row["id"] . '" class="action-link"> Ver detalles</a>';
+                                } else {
+                                    echo $descripcion;
+                                }
+                            ?>
+                        
+                        </td>
                         <td >
+                            <a href="verDetalle.php?id=<?=$row["id"];?>" class="action-link"> Ver detalles</a>
                             <a href='borrarTarea.php?id=<?php echo $row["id"];?>' class="action-link">Borrar</a>
-                            <!-- <a href='formularioModificar.php?id=<?php echo $row["id"];?>'>Modificar</a> -->
-                            <a href='formularioModificar.php?id=<?php echo urlencode($row["id"]);?>&titulo=<?php echo urlencode($row["titulo"]); ?>&descripcion=<?php echo urlencode($row["descripcion"]); ?>' class="action-link">Modificar</a>
+                            <a href='formularioModificar.php?id=<?php echo urlencode($row["id"]);?>' class="action-link">Modificar</a>
 
                         </td>
                     </tr>
@@ -64,11 +80,12 @@ $conn = null; // Cerrar la conexión
             </table>
         <?php else: ?>
             <!-- La consulta no contiene registros -->
-            <p>No tienes na que hacer</p>
+            <p>No tienes ná que hacer</p>
         <?php endif; ?>
-
-        <a href="formularioTarea.php" class="logout-link">Añadir Tarea</a>
-        <a href="cerrarSesion.php" class="logout-link">Cerrar sesión</a>
+        <div class="button-container">
+            <a href="formularioTarea.php" class="logout-link">Añadir Tarea</a>
+            <a href="cerrarSesion.php" class="logout-link">Cerrar sesión</a>
+        </div>
     </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-/* stylesLog.css */
+/* Estilos para verDetalle.php */
 
 body {
     font-family: Arial, sans-serif;
@@ -13,7 +13,8 @@ body {
 .container {
     text-align: center;
     /* background-color: rgb(213, 243, 233); */
-    background-color: rgb(191, 242, 225);
+    /* background-color: rgb(191, 242, 225); */
+    background-color: rgb(219, 243, 233);
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

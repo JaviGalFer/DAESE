@@ -1,8 +1,10 @@
 <?php
 /** 
 * Autor: Francisco Javier Gallego Fernández
-* 
+* Archivo: registro.php
+* Registro de usuarios haciendo conexión a la DB
 */
+
 //Incluimos el connect a la DB
 include 'db_connect.php';
 

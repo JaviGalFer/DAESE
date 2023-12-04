@@ -1,4 +1,4 @@
-/* Estilos para index.html */
+/* Estilos para tareas.php */
 
 body {
     font-family: Arial, sans-serif;
@@ -13,7 +13,8 @@ body {
 
 .container {
     width: 50%;
-    background-color: rgb(192, 229, 218);
+    /* background-color: rgb(192, 229, 218); */
+    background-color: rgb(219, 243, 233);
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -22,6 +23,8 @@ body {
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
+
+    max-width: 800px;
 }
 
 hr {
@@ -41,6 +44,9 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    overflow-x: auto;
+
+    max-width: 100%;
 }
 
 table, th, td {
@@ -87,6 +93,7 @@ a {
 }
 
 .action-link {
+    /* white-space: nowrap; */
     white-space: inline-block;
     margin-right: 10px; 
     text-align: center;
@@ -97,8 +104,31 @@ a {
     padding: 10px 20px;
     text-decoration: none;
     margin-top: 20px;
+
+
+    margin-right: 0;
 }
 
 .action-link:hover{
     background-color: rgb(82, 163, 137);
+}
+
+@media screen and (max-width: 767px) {
+    .action-link {
+        display: block;
+        margin-top: 900px;
+        margin-right: 0;
+    }
+
+    table{
+        overflow-x: auto;
+    }
+
+    table, th, td {
+        font-size: 12px; /* Ajusta el tamaño de fuente para dispositivos pequeños */
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
 }

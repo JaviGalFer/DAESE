@@ -1,8 +1,10 @@
 <?php
 /** 
 * Autor: Francisco Javier Gallego Fernández
-* 
+* Archivo: tareas.php
+* Muestra todas las tareas del usuario en una tabla.
 */
+
 //Incluimos el connect a la DB
 include 'db_connect.php';
 
@@ -70,8 +72,8 @@ $conn = null; // Cerramos la conexión
                         
                         </td>
                         <td >
-                            <a href="verDetalle.php?id=<?=$row["id"];?>" class="action-link"> Ver detalles</a>
-                            <a href='borrarTarea.php?id=<?php echo $row["id"];?>' class="action-link">Borrar</a>
+                            <a href="verDetalle.php?id=<?=urlencode($row["id"]);?>" class="action-link"> Ver detalles</a>
+                            <a href='borrarTarea.php?id=<?php echo urlencode($row["id"]);?>' class="action-link">Borrar</a>
                             <a href='formularioModificar.php?id=<?php echo urlencode($row["id"]);?>' class="action-link">Modificar</a>
 
                         </td>

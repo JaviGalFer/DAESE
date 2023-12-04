@@ -1,19 +1,23 @@
 <?php
 /** 
 * Autor: Francisco Javier Gallego Fernández
-* Arhivo: borrarTarea.php
-* Borrar una tarea de la DB
+* Arhivo: verDetalle.php
+* Muestra en detalle la información de una tarea.
 */
+
 //Incluimos el connect a la DB
 include 'db_connect.php';
+
 //Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
+
 //Declaramos la variable para almacenar los datos de la sesión
 $username = $_SESSION['username'];
 $userId = $_SESSION['userId'];
 
 if(isset($_GET['id']) && is_numeric($_GET['id'])){
-    $tareaId = $_GET['id'];
+    // $tareaId = $_GET['id'];
+    $tareaId = urldecode($_GET['id']);
 
     //Hacemos la consulta para obtener los datos de la tarea y así usarla a posterior
     $queryInfo = "SELECT * FROM tarea WHERE id = :tareaId";

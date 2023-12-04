@@ -1,13 +1,16 @@
 <?php
 /** 
 * Autor: Francisco Javier Gallego Fernández
-* Arhivo: borrarTarea.php
-* Borrar una tarea de la DB
+* Arhivo: formularioModificar.php
+* Formulario para modificar una tarea de la DB
 */
+
 //Incluimos el connect a la DB
 include 'db_connect.php';
+
 //Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
+
 //Declaramos la variable para almacenar los datos de la sesión
 $username = $_SESSION['username'];
 $userId = $_SESSION['userId'];

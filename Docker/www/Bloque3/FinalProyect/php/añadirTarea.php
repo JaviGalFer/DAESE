@@ -4,10 +4,13 @@
 * Arhivo: añadirTarea.php
 * Añadir tarea a la DB
 */
+
 //Incluimos el connect a la DB
 include 'db_connect.php';
+
 //Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
+
 //Declaramos la variable para almacenar los datos de la sesión
 $username = $_SESSION['username'];
 $userId = $_SESSION['userId'];

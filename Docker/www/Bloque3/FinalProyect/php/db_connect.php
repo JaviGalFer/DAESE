@@ -4,6 +4,7 @@
 * Archivo: db_connect.php
 * Conexión a la base de datos
 */
+
 //Datos de la DB
 $host = "db";
 $dbUsername = "root";

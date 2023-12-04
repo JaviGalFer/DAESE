@@ -1,10 +1,14 @@
 <?php
 /** 
 * Autor: Francisco Javier Gallego Fernández
-* 
+* Archivo: login.php
+* Login de los usuarios accediendo a la DB
 */
+
 //Incluimos el connect a la DB
 include 'db_connect.php';
+
+//Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
 
 if (isset($_POST['username']) && isset($_POST['password'])){
@@ -26,7 +30,7 @@ if (isset($_POST['username']) && isset($_POST['password'])){
         if ($resultado) {
             $_SESSION['username'] = $username;
             $_SESSION['userId'] = $resultado['id'];
-            header('Location: ../logueado.php');
+            header('Location: ./logueado.php');
         }else {
             echo "<script>alert('Usuario o contraseña incorrecto.');</script>";
             echo "<script>window.location = '../index.html';</script>";

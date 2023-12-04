@@ -1,8 +1,11 @@
 <?php
 /** 
 * Autor: Francisco Javier Gallego Fernández
-* 
+* Archivo: FormularioTarea.php
+* Formulario para agregar una tarea del usuario a la DB
 */
+
+//Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
 
 ?>

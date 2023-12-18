@@ -4,7 +4,7 @@ require_once 'Sesion.php';
 $sesion = new Sesion();
 
 // Prueba de setUsuario
-$sesion->setUsuario('JohnDoe');
+$sesion->setUsuario('Pepe');
 
 // Prueba de getUsuario
 echo "Usuario: " . $sesion->getUsuario() . "<br>";

@@ -16,6 +16,9 @@
 <body>
     <?php
 
+    include "clases/Autor.php";
+    include "clases/Libro.php";
+
     // Miramos el valor de la variable "action", si existe. Si no, le asignamos una acción por defecto
     if (isset($_REQUEST["action"])) {
         $action = $_REQUEST["action"];
@@ -90,15 +93,17 @@
                             <th>Género</th>
                             <th>País</th>
                             <th>Año</th>
+                            <th>Autor</th>
                             <th>Número de páginas</th>
                             <th>Acciones</th>
                         </tr>";
-                while ($libro = $result->fetch_object()) {
+                while ($libro = $result->fetch_object("Libro")) {
                     echo "<tr>
                             <td>" . $libro->titulo . "</td>
                             <td>" . $libro->genero . "</td>
                             <td>" . $libro->pais . "</td>
                             <td>" . $libro->ano . "</td>
+                            <td>" . $libro->nombre . "</td>
                             <td>" . $libro->numPaginas . "</td>
                             <td>
                                 <a href='index.php?action=borrarLibro&idLibro=" . $libro->idLibro . "'>Borrar</a>
@@ -137,7 +142,7 @@
         $result = $db->query("SELECT * FROM personas");
         //Agregamos la etiqueta de apertura del select
         echo "<select name='autores[]' multiple>";
-        while ($autor = $result->fetch_object()) {
+        while ($autor = $result->fetch_object("Autor")) {
             echo "<option value='" . $autor->idPersona . "'>" . $autor->nombre . " " . $autor->apellido . "</option>";
         }
         echo "</select>";
@@ -180,7 +185,7 @@
             // var_dump($idLibro);
 
             $result = $db->query("SELECT MAX(idLibro) AS ultimoIdLibro FROM libros");
-            $idLibro = $result->fetch_assoc()['ultimoIdLibro'];
+            $idLibro = $result->fetch_object("Libro")->ultimoIdLibro;
 
             // Ya podemos insertar todos los autores junto con el libro en "escriben"
             // if (isset($_GET['autores']) && is_array($_GET['autores']) && !empty($_GET['autores'])) {
@@ -233,18 +238,18 @@
         $idLibro = $_GET['idLibro']; 
         $db = new mysqli("db", "root", "test", "biblioteca");
         $result = $db->query("SELECT * FROM libros WHERE idLibro='$idLibro'");
-        $libro = $result->fetch_assoc();
+        $libro = $result->fetch_object("Libro");
 
         
         // Creamos el formulario con los campos del libro
         // y lo rellenamos con los datos que hemos recuperado de la BD
         echo "<form action='index.php' method='get'>
                     <input type='hidden' name='idLibro' value='$idLibro'>
-                    Título:<input type='text' name='titulo' value='" . $libro['titulo'] . "'><br>
-                    Género:<input type='text' name='genero' value='" . $libro['genero'] . "'><br>
-                    País:<input type='text' name='pais' value='" . $libro['pais'] . "'><br>
-                    Año:<input type='text' name='ano' value='" . $libro['ano'] . "'><br>
-                    Número de páginas:<input type='text' name='numPaginas' value='" . $libro['numPaginas'] . "'><br>";
+                    Título:<input type='text' name='titulo' value='" . $libro->titulo . "'><br>
+                    Género:<input type='text' name='genero' value='" . $libro->genero . "'><br>
+                    País:<input type='text' name='pais' value='" . $libro->pais . "'><br>
+                    Año:<input type='text' name='ano' value='" . $libro->ano . "'><br>
+                    Número de páginas:<input type='text' name='numPaginas' value='" . $libro->numPaginas . "'><br>";
 
         // Vamos a añadir un selector para el id del autor o autores.
         // Para que salgan preseleccionados los autores del libro que estamos modificando, vamos a buscar
@@ -258,17 +263,17 @@
             echo "Error en la consulta: " . $db->error;
         }else{
             $autoresSeleccionados = array();
-            while ($rowAutores = $resultAutores->fetch_assoc()) {
-                $autoresSeleccionados[] = $rowAutores["idPersona"];
+            while ($rowAutores = $resultAutores->fetch_object("Autor")) {
+                $autoresSeleccionados[] = $rowAutores->idPersona;
             }
         }
         
         // Ya tenemos todos los datos para añadir el selector de autores al formulario
         $result = $db->query("SELECT * FROM personas");
         echo "<select name='autores[]' multiple>";
-        while ($row = $result->fetch_assoc()) {
-            $selected = (in_array($row["idPersona"], $autoresSeleccionados)) ? "selected" : "";
-            echo "<option value='" . $row["idPersona"] . "' $selected>" . $row["nombre"] . " " . $row["apellido"] . "</option>";
+        while ($row = $result->fetch_object("Autor")) {
+            $selected = (in_array($row->idPersona, $autoresSeleccionados)) ? "selected" : "";
+            echo "<option value='" . $row->idPersona . "' $selected>" . $row->nombre . " " . $row->apellido . "</option>";
         }
         echo "</select>";
         
@@ -351,16 +356,16 @@
                             <th>Número de páginas</th>
                             <th>Acciones</th>
                         </tr>";
-                while ($row = $result->fetch_assoc()) {
+                while ($row = $result->fetch_object("Libro")) {
                     echo "<tr>
-                            <td>" . $row["titulo"] . "</td>
-                            <td>" . $row["genero"] . "</td>
-                            <td>" . $row["pais"] . "</td>
-                            <td>" . $row["ano"] . "</td>
-                            <td>" . $row["numPaginas"] . "</td>
+                            <td>" . $row->titulo . "</td>
+                            <td>" . $row->genero . "</td>
+                            <td>" . $row->pais . "</td>
+                            <td>" . $row->ano . "</td>
+                            <td>" . $row->numPaginas . "</td>
                             <td>
-                                <a href='index.php?action=borrarLibro&idLibro=" . $row["idLibro"] . "'>Borrar</a>
-                                <a href='index.php?action=formularioModificarLibro&idLibro=" . $row["idLibro"] . "'>Modificar</a>
+                                <a href='index.php?action=borrarLibro&idLibro=" . $row->idLibro . "'>Borrar</a>
+                                <a href='index.php?action=formularioModificarLibro&idLibro=" . $row->idLibro . "'>Modificar</a>
                             </td>
                         </tr>";
                 }

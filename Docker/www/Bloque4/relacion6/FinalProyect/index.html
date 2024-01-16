@@ -1,0 +1,27 @@
+<!-- 
+/** 
+* Autor: Francisco Javier Gallego Fernández
+* Archivo: index.html
+* Página de inicio con el form del login
+*/
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>Inicio de Sesión</title>
+</head>
+<body>
+    <form action="php/login.php" method="post">
+        <h2>Login</h2>
+        <input type="text" name="username" placeholder="Usuario" maxlength="20" required>
+        <input type="password" name="password" placeholder="Contraseña" maxlength="200" required><br>
+        <input type="submit" value="Iniciar Sesión"><br>
+        <p>¿No tienes cuenta?</p>
+        <a href="./html/registro.html">Registrate</a>
+    </form>
+    
+</body>
+</html>

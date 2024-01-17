@@ -5,6 +5,7 @@
 * Bienvenida a la página de inicio de sesión.
 */
 
+include_once("./clases/User.php");
 //Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
 
@@ -19,7 +20,9 @@ session_start();
 </head>
 <body>
     <div class="container">
-        <h1>Bienvenido <?php echo $_SESSION['username']; ?></h1>
+
+        <?php $usuario =  $_SESSION['user'];?>
+        <h1>Bienvenido <?=$usuario->getUsuario();?></h1>
         <p>¡Has iniciado sesión con éxito!</p>
         <a href="./Tareas.php" class="logout-link">Ver tareas</a>
         <a href="./cerrarSesion.php" class="logout-link">Cerrar sesión</a>

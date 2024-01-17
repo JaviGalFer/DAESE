@@ -8,6 +8,10 @@
 //Incluimos el connect a la DB
 include 'db_connect.php';
 
+/////////////////IMPORTANTE//////////////
+//Incluimos clases antes de las sesiones
+include_once ('./clases/User.php');
+
 //Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
 
@@ -25,11 +29,10 @@ if (isset($_POST['username']) && isset($_POST['password'])){
         
         $statement->execute(array(':username' => $username, ':password' => $password));
 
-        $resultado = $statement->fetch();
+        $resultado = $statement->fetchAll(PDO::FETCH_CLASS, "User");
 
         if ($resultado) {
-            $_SESSION['username'] = $username;
-            $_SESSION['userId'] = $resultado['id'];
+            $_SESSION['user'] =  $resultado[0];
             header('Location: ./logueado.php');
         }else {
             echo "<script>alert('Usuario o contraseña incorrecto.');</script>";

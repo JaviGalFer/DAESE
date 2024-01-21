@@ -25,12 +25,13 @@ if (isset($_POST['username']) && isset($_POST['password'])){
 
         //Hacemos la consulta a la DB
         $statement = $conn->prepare('SELECT * FROM usuarios WHERE usuario = :username AND password = :password LIMIT 1');
-        
+        // $statement = $conn->prepare('SELECT id as idUser, usuario, password FROM usuarios WHERE usuario = :username AND password = :password LIMIT 1');
         
         $statement->execute(array(':username' => $username, ':password' => $password));
 
         $resultado = $statement->fetchAll(PDO::FETCH_CLASS, "User");
 
+        
         if ($resultado) {
             $_SESSION['user'] =  $resultado[0];
             header('Location: ./logueado.php');

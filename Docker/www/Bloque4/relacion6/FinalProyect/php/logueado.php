@@ -23,6 +23,7 @@ session_start();
 
         <?php $usuario =  $_SESSION['user'];?>
         <h1>Bienvenido <?=$usuario->getUsuario();?></h1>
+        <h1>Tu ID es:  <?=$usuario->getIdUser();?></h1>
         <p>¡Has iniciado sesión con éxito!</p>
         <a href="./Tareas.php" class="logout-link">Ver tareas</a>
         <a href="./cerrarSesion.php" class="logout-link">Cerrar sesión</a>

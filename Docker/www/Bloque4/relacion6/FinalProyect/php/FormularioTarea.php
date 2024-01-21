@@ -5,8 +5,13 @@
 * Formulario para agregar una tarea del usuario a la DB
 */
 
+/////////////////IMPORTANTE//////////////
+//Incluimos clases antes de las sesiones
+include_once ('./clases/User.php');
+
 //Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
+$usuario = $_SESSION['user'];
 
 ?>
 <!DOCTYPE html>
@@ -20,7 +25,7 @@ session_start();
 <body>
     <div class="container">
         <form action="añadirTarea.php" method="post">
-            <h1><?php echo strtoupper($_SESSION['username']); ?></h1>
+            <h1><?php echo strtoupper($usuario->getUsuario()); ?></h1>
             <h2>Añadir Tarea</h2>
             <label for="titulo">Título:</label>
             <input type="text" id="titulo" name="titulo" maxlength="20" required><br>

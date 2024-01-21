@@ -8,12 +8,17 @@
 //Incluimos el connect a la DB
 include 'db_connect.php';
 
+/////////////////IMPORTANTE//////////////
+//Incluimos clases antes de las sesiones
+include_once ('./clases/User.php');
+
 //Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
 
 //Variables de la sesión para almacenar los datos
-$username = $_SESSION['username'];
-$userId = $_SESSION['userId'];
+$usuario = $_SESSION['user'];
+$userId = $usuario->getIdUser();
+$username = $usuario->getUsuario(); 
 
 // Consulta de las tareas del usuario actual
 $query = "SELECT tarea.id, tarea.titulo, tarea.descripcion FROM tarea
@@ -39,8 +44,9 @@ $conn = null; // Cerramos la conexión
     <title>Tareas</title>
 </head>
 <body>
-    <div class="container">
-        <h1><?php echo strtoupper($_SESSION['username']); ?></h1>
+    <div class="container"> 
+        <h1><?php echo strtoupper($username); ?></h1>
+        <h1><?php echo strtoupper($userId); ?></h1>
         <hr>
         <h2>Tus tareas</h2>
         <?php if (!empty($result)): ?>

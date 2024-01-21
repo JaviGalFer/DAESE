@@ -2,7 +2,7 @@
 
 class User 
 {
-    private $idUser;
+    private $id;
     private $usuario;
     private $password;
     //Constructor
@@ -16,10 +16,10 @@ class User
 
     //Getters y Setters
     public function getIdUser(){
-        return $this->idUser;
+        return $this->id;
     }
-    public function setIdUser($idUser){
-        $this->idUser = $idUser;
+    public function setIdUser($id){
+        $this->id = $id;
     }
     public function getUsuario(){
         return $this->usuario;

@@ -8,12 +8,17 @@
 //Incluimos el connect a la DB
 include 'db_connect.php';
 
+/////////////////IMPORTANTE//////////////
+//Incluimos clases antes de las sesiones
+include_once ('./clases/User.php');
+
 //Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
 
-//Declaramos la variable para almacenar los datos de la sesión
-$username = $_SESSION['username'];
-$userId = $_SESSION['userId'];
+//Variables de la sesión para almacenar los datos
+$usuario = $_SESSION['user'];
+$userId = $usuario->getIdUser();
+$username = $usuario->getUsuario(); 
 
 if(isset($_POST['titulo']) && isset($_POST['descripcion']) && isset($_POST['tareaId'])){
 	$titulo = $_POST['titulo'];

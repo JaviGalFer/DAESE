@@ -8,12 +8,19 @@
 //Incluimos el connect a la DB
 include 'db_connect.php';
 
+/////////////////IMPORTANTE//////////////
+//Incluimos clases antes de las sesiones
+include_once ('./clases/User.php');
+
 //Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
-
 //Declaramos la variable para almacenar los datos de la sesión
-$username = $_SESSION['username'];
-$userId = $_SESSION['userId'];
+$usuario = $_SESSION['user'];
+$userId = $usuario->getIdUser();
+
+
+
+
 
 if(isset($_POST['titulo']) && isset($_POST['descripcion'])){
 	$titulo = $_POST['titulo'];
@@ -55,8 +62,9 @@ if(isset($_POST['titulo']) && isset($_POST['descripcion'])){
 <body>
     <div class="container">
         <h2>Tarea añadida con exito</h2>
+        <h2>UsuarioID= <?=$userId;?></h2>
         <a href="tareas.php" class="logout-link">Ver Tareas</a>
-        <a href="php/cerrarSesion.php" class="logout-link">Cerrar sesión</a>
+        <a href="cerrarSesion.php" class="logout-link">Cerrar sesión</a>
     </div>
 </body>
 </html>

@@ -11,10 +11,11 @@ include 'db_connect.php';
 /////////////////IMPORTANTE//////////////
 //Incluimos clases antes de las sesiones
 include_once ('./clases/User.php');
+include_once ('./clases/Task.php');
+
 
 //Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
-
 //Variables de la sesión para almacenar los datos
 $usuario = $_SESSION['user'];
 $userId = $usuario->getIdUser();
@@ -29,7 +30,10 @@ $query = "SELECT tarea.id, tarea.titulo, tarea.descripcion FROM tarea
 $stmt = $conn->prepare($query);
 $stmt->bindParam(':username', $username);
 $stmt->execute();
-$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+// $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+$result = $stmt->fetchAll(PDO::FETCH_CLASS, "Task");
+// $_SESSION['tareas'] = $result[0];
+// $tareas = $_SESSION['tareas'];
 
 $conn = null; // Cerramos la conexión
 
@@ -50,6 +54,7 @@ $conn = null; // Cerramos la conexión
         <hr>
         <h2>Tus tareas</h2>
         <?php if (!empty($result)): ?>
+            
             <!-- La consulta ha devuelto registros: vamos a mostrarlos -->
             <table border="1">
                 <tr>
@@ -61,12 +66,12 @@ $conn = null; // Cerramos la conexión
 
                 <?php foreach ($result as $row): ?>
                     <tr>
-                        <td><?php echo $row->id; ?></td>
-                        <td><?php echo $row->titulo; ?></td>
+                        <td><?php echo $row->getId(); ?></td>
+                        <td><?php echo $row->getTitulo(); ?></td>
                         <td>
-                            <!-- <?php echo $row->descripcion; ?> -->
+                            <!-- <?php echo $row->getDescripcion(); ?> -->
                             <?php
-                                $descripcion = $row->descripcion;
+                                $descripcion = $row->getDescripcion();
                                 if (strlen($descripcion) > 15) {
                                     $descripcion = substr($descripcion, 0, 15) . '...';
                                     echo $descripcion;
@@ -78,9 +83,9 @@ $conn = null; // Cerramos la conexión
                         
                         </td>
                         <td >
-                            <a href="verDetalle.php?id=<?=urlencode($row->id);?>" class="action-link"> Ver detalles</a>
-                            <a href='borrarTarea.php?id=<?php echo urlencode($row->id);?>' class="action-link">Borrar</a>
-                            <a href='formularioModificar.php?id=<?php echo urlencode($row->id);?>' class="action-link">Modificar</a>
+                            <a href="verDetalle.php?id=<?=urlencode($row->getId());?>" class="action-link"> Ver detalles</a>
+                            <a href='borrarTarea.php?id=<?php echo urlencode($row->getId());?>' class="action-link">Borrar</a>
+                            <a href='formularioModificar.php?id=<?php echo urlencode($row->getId());?>' class="action-link">Modificar</a>
 
                         </td>
                     </tr>

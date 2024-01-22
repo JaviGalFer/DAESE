@@ -11,6 +11,7 @@ include 'db_connect.php';
 /////////////////IMPORTANTE//////////////
 //Incluimos clases antes de las sesiones
 include_once ('./clases/User.php');
+include_once ('./clases/Task.php');
 
 //Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
@@ -36,7 +37,11 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
     $stmtInfo->bindParam(':tareaId', $tareaId);
     $stmtInfo->bindParam(':username', $username);
     $stmtInfo->execute();
+    // $tareaInfo = $stmtInfo->fetch();
+    $stmtInfo->setFetchMode(PDO::FETCH_CLASS, 'Task');
     $tareaInfo = $stmtInfo->fetch();
+    
+    // $tareas = $tareaInfo[0];
 
 
     if (!$tareaInfo) {
@@ -69,11 +74,11 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
         <br>
         <h2>Título de la tarea</h2>
         <div class="details-box">
-            <h2><?php echo $tareaInfo['titulo']; ?></h2>
+            <h2><?php echo $tareaInfo->getTitulo(); ?></h2>
         </div>
         <h2>Descripción</h2>
         <div class="details-box">
-            <p><strong></strong> <?php echo $tareaInfo['descripcion']; ?></p>
+            <p><strong></strong> <?php echo $tareaInfo->getDescripcion(); ?></p>
         </div>
         <a href="tareas.php" class="logout-link">Volver</a>
     </div>

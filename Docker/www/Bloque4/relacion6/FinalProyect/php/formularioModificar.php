@@ -11,6 +11,7 @@ include 'db_connect.php';
 /////////////////IMPORTANTE//////////////
 //Incluimos clases antes de las sesiones
 include_once ('./clases/User.php');
+include_once ('./clases/Task.php');
 
 //Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();
@@ -36,6 +37,8 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
     $stmtInfo->bindParam(':tareaId', $tareaId);
     $stmtInfo->bindParam(':username', $username);
     $stmtInfo->execute();
+    // $tareaInfo = $stmtInfo->fetch();
+    $stmtInfo->setFetchMode(PDO::FETCH_CLASS, 'Task');
     $tareaInfo = $stmtInfo->fetch();
 
 
@@ -66,14 +69,14 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
     <div class="container">
         <form action="modificarTarea.php" method="post">
             <h1><?php echo strtoupper($username); ?></h1>
-            <h2>Modificar Tarea '<?php echo $tareaInfo['titulo']; ?>'</h2>
+            <h2>Modificar Tarea '<?php echo $tareaInfo->getTitulo(); ?>'</h2>
             <input type="hidden" name="tareaId" value="<?php echo $tareaId; ?>">
 
             <label for="titulo">Nuevo Título</label>
-            <input type="text" id="titulo" name="titulo" value="<?php echo $tareaInfo['titulo']; ?>" maxlength="20" required><br>
+            <input type="text" id="titulo" name="titulo" value="<?php echo $tareaInfo->getTitulo(); ?>" maxlength="20" required><br>
 
             <label for="descripcion">Nueva Descripción</label>
-            <textarea id="descripcion" name="descripcion" maxlength="200" required><?php echo $tareaInfo['descripcion']; ?></textarea><br>
+            <textarea id="descripcion" name="descripcion" maxlength="200" required><?php echo $tareaInfo->getDescripcion(); ?></textarea><br>
 
             <input type="submit" value="Actualizar">
             <a href="tareas.php" class="action-link">Volver</a>

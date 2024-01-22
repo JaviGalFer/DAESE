@@ -10,6 +10,7 @@ include 'db_connect.php';
 /////////////////IMPORTANTE//////////////
 //Incluimos clases antes de las sesiones
 include_once ('./clases/User.php');
+include_once ('./clases/Task.php');
 
 //Iniciamos la sesión para poder acceder a los datos de la sesión
 session_start();

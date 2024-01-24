@@ -49,12 +49,12 @@ class Biblioteca {
 
         // --------------------------------- BORRAR LIBROS ----------------------------------------
 
-          public function borrarLibro() {
+        public function borrarLibro() {
             // Recuperamos el id del libro que hay que borrar
             $idLibro = $_REQUEST["idLibro"];
             // Pedimos al modelo que intente borrar el libro
             $result = $this->libro->delete($idLibro);
- 
+
             $data["listaLibros"] = $this->libro->getAll();
             View::render("libro/all", $data);
 
@@ -82,7 +82,7 @@ class Biblioteca {
             $idTarea = $_REQUEST["idTarea"];
             $titulo = $_REQUEST["titulo"];
             $descripcion = $_REQUEST["descripcion"];
-            $usuarios = $_REQUEST["usuarios"];
+            // $usuarios = $_REQUEST["usuarios"];
 
             // Pedimos al modelo que haga el update
             $result = $this->libro->update($idTarea, $titulo, $descripcion);
@@ -91,7 +91,7 @@ class Biblioteca {
             $result = $this->libro->deleteAutores($idTarea);
 
             // Ya podemos insertar todos los autores junto con el libro en "escriben"
-            $result = $this->libro->insertAutores($idTarea, $usuarios);
+            // $result = $this->libro->insertAutores($idTarea, $usuarios);
                 
             
             $data["listaTareas"] = $this->libro->getAll();

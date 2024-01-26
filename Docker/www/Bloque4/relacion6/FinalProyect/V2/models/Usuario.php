@@ -4,7 +4,7 @@
 
 include_once "model.php";
 
-class Persona extends Model {
+class Usuario extends Model {
 
     // Constructor. Conecta con la base de datos.
     public function __construct() {
@@ -25,5 +25,13 @@ class Persona extends Model {
     public function insert($usuario, $password)
     {
         return $this->db->dataManipulation("INSERT INTO usuarios (usuario,password) VALUES ('$usuario','$password')");
+    }
+
+    public function login($usuario, $password) {
+        // Obtenemos solo los autores del libro que estamos buscando
+        $usuariosTarea = $this->db->dataQuery("SELECT usuario, password FROM usuarios WHERE usuario = '$usuario' AND password = '$password'");
+        // Vamos a convertir esa lista de autores del libro en un array de ids de personas
+        echo count($usuariosTarea);
+        return count($usuariosTarea);
     }
 }

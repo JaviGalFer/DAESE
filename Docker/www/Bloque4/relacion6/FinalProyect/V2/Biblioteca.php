@@ -1,83 +1,112 @@
 <?php
-include_once("models/libro.php");  // Modelos
-include_once("models/persona.php");
+include_once("models/Tarea.php");  // Modelos
+include_once("models/Usuario.php");
 include_once("View.php");          // Plantilla de vista
 
 class Biblioteca {
         private $db;             // Conexión con la base de datos
-        private $libro, $persona;// Modelos
+        private $Tarea, $Usuario;// Modelos
 
         public function __construct() {
-            $this->libro = new Libro();
-            $this->persona = new Persona();
+            $this->Tarea = new Tarea();
+            $this->Usuario = new Usuario();
         }
 
-        // --------------------------------- MOSTRAR LISTA DE LIBROS ----------------------------------------
-        public function mostrarListaLibros() {
-            $data["listaTareas"] = $this->libro->getAll();
-            View::render("libro/all", $data);
+        //---------------------------------- COMPROBAR USUARIO LOGUEADO -------------------------------------
+
+        public function comprobarUsuarioLogueado() {
+            if (!isset($_SESSION["usuario"])) {
+                View::render("login/form");
+                exit();
+            } else {
+                $this->mostrarListaTareas();
+            }
         }
 
-        // --------------------------------- FORMULARIO ALTA DE LIBROS ----------------------------------------
-
-        public function formularioInsertarLibros() {
-            $data["todosLosAutores"] = $this->persona->getAll();
-            $data["autoresLibro"] = array();  // Array vacío (el libro aún no tiene autores asignados)
-            View::render("libro/form", $data);
+        //---------------------------------- HACER LOGIN USUARIO -------------------------------------
+        public function hacerLogin() {
+            // Primero, recuperamos todos los datos del formulario
+            echo "hola ". $_REQUEST["usuario"];
+            $usuario = $_REQUEST["usuario"];
+            $password = $_REQUEST["password"];
+            // Pedimos al modelo que intente hacer login
+            $result = $this->Usuario->login($usuario, $password);
+            // Si el login ha funcionado, guardamos en la sesión el usuario
+            echo $result;
+            if ($result == 1) {
+                echo $usuario;
+                $_SESSION["usuario"] = $usuario;
+            }
+            // Mostramos la lista de tareas
+            $this->mostrarListaTareas();
         }
 
-        // --------------------------------- INSERTAR LIBROS ----------------------------------------
+        // --------------------------------- MOSTRAR LISTA DE TAREAS ----------------------------------------
+        public function mostrarListaTareas() {
+            $data["listaTareas"] = $this->Tarea->getAll();
+            View::render("tarea/all", $data);
+        }
 
-        public function insertarLibro() {
+        // --------------------------------- FORMULARIO ALTA DE TAREAS ----------------------------------------
+
+        public function formularioInsertarTareas() {
+            $data["listaUsuarios"] = $this->Usuario->getAll();
+            $data["usuariosTarea"] = array();  // Array vacío (la tarea aún no tiene autores asignados)
+            View::render("tarea/form", $data);
+        }
+
+        // --------------------------------- INSERTAR TAREAS ----------------------------------------
+
+        public function insertarTarea() {
             // Primero, recuperamos todos los datos del formulario
             $titulo = $_REQUEST["titulo"];
             $descripcion = $_REQUEST["descripcion"];;            
 
-            $result = $this->libro->insert($titulo, $descripcion);
+            $result = $this->Tarea->insert($titulo, $descripcion);
             if ($result == 1) {
-                // Si la inserción del libro ha funcionado, continuamos insertando los autores, pero
-                // necesitamos conocer el id del libro que acabamos de insertar
-                $idTarea = $this->libro->getMaxId();
+                // Si la inserción de la tarea ha funcionado, continuamos insertando los autores, pero
+                // necesitamos conocer el id de la tarea que acabamos de insertar
+                $idTarea = $this->Tarea->getMaxId();
                 // Ya podemos insertar todos los autores junto con el libro en "escriben"
                 // $result = $this->libro->insertAutores($idTarea, $autores);
                 
             } 
-            $data["listaLibros"] = $this->libro->getAll();
-            View::render("libro/all", $data);
+            $data["listaTareas"] = $this->Tarea->getAll();
+            View::render("tarea/all", $data);
 
         }
 
-        // --------------------------------- BORRAR LIBROS ----------------------------------------
+        // --------------------------------- BORRAR TAREAS ----------------------------------------
 
-        public function borrarLibro() {
-            // Recuperamos el id del libro que hay que borrar
-            $idLibro = $_REQUEST["idLibro"];
-            // Pedimos al modelo que intente borrar el libro
-            $result = $this->libro->delete($idLibro);
+        public function borrarTarea() {
+            // Recuperamos el id de la tarea que hay que borrar
+            $idTarea = $_REQUEST["idTarea"];
+            // Pedimos al modelo que intente borrar la tarea
+            $result = $this->Tarea->delete($idTarea);
 
-            $data["listaLibros"] = $this->libro->getAll();
-            View::render("libro/all", $data);
+            $data["listaTareas"] = $this->Tarea->getAll();
+            View::render("tarea/all", $data);
 
         }
 
-        // --------------------------------- FORMULARIO MODIFICAR LIBROS ----------------------------------------
+        // --------------------------------- FORMULARIO MODIFICAR TAREAS ----------------------------------------
 
-        public function formularioModificarLibro() {
-            // Recuperamos los datos del libro a modificar
+        public function formularioModificarTarea() {
+            // Recuperamos los datos de la tarea a modificar
             // echo $_REQUEST["idTarea"];
             $idTarea = $_REQUEST["idTarea"];
-            $data["tarea"] = $this->libro->get($idTarea)[0];
+            $data["tarea"] = $this->Tarea->get($idTarea)[0];
             // Renderizamos la vista de inserción de libros, pero enviándole los datos del libro recuperado.
             // Esa vista necesitará la lista de todos los autores y, además, la lista
             // de los autores de este libro en concreto.
             // $data["todosLosUsuarios"] = $this->persona->getAll();
             // $data["usuariosTarea"] = $this->persona->getAutores($_REQUEST["idTarea"]);
-            View::render("libro/form", $data);
+            View::render("tarea/form", $data);
         }
 
-        // --------------------------------- MODIFICAR LIBROS ----------------------------------------
+        // --------------------------------- MODIFICAR TAREAS ----------------------------------------
 
-        public function modificarLibro() {
+        public function modificarTarea() {
             // Primero, recuperamos todos los datos del formulario
             $idTarea = $_REQUEST["idTarea"];
             $titulo = $_REQUEST["titulo"];
@@ -85,59 +114,59 @@ class Biblioteca {
             // $usuarios = $_REQUEST["usuarios"];
 
             // Pedimos al modelo que haga el update
-            $result = $this->libro->update($idTarea, $titulo, $descripcion);
+            $result = $this->Tarea->update($idTarea, $titulo, $descripcion);
 
             // Eliminamos todos los autores asociados con el libro en "escriben"
-            $result = $this->libro->deleteAutores($idTarea);
+            // $result = $this->libro->deleteAutores($idTarea);
 
             // Ya podemos insertar todos los autores junto con el libro en "escriben"
             // $result = $this->libro->insertAutores($idTarea, $usuarios);
                 
             
-            $data["listaTareas"] = $this->libro->getAll();
-            View::render("libro/all", $data);
+            $data["listaTareas"] = $this->Tarea->getAll();
+            View::render("tarea/all", $data);
         }
 
-        // --------------------------------- BUSCAR LIBROS ----------------------------------------
+        // --------------------------------- BUSCAR TAREAS ----------------------------------------
 
-        public function buscarLibros() {
+        public function buscarTareas() {
             // Recuperamos el texto de búsqueda de la variable de formulario
             $textoBusqueda = $_REQUEST["textoBusqueda"];
-            // Buscamos los libros que coinciden con la búsqueda
-            $data["listaLibros"] = $this->libro->search($textoBusqueda);
-            // Mostramos el resultado en la misma vista que la lista completa de libros
-            View::render("libro/all", $data);
+            // Buscamos las tareas que coinciden con la búsqueda
+            $data["listaTareas"] = $this->Tarea->search($textoBusqueda);
+            // Mostramos el resultado en la misma vista que la lista completa de tareas
+            View::render("tarea/all", $data);
         }
 
-        // --------------------------------- MOSTRAR LISTA DE AUTORES ----------------------------------------
-        public function mostrarListaAutores() {
-            $data["listaPersonas"] =  $this->persona->getAll();
-            View::render("persona/all",$data);
+        // --------------------------------- MOSTRAR LISTA DE USUARIOS ----------------------------------------
+        public function mostrarListaUsuarios() {
+            $data["listaUsuarios"] =  $this->Usuario->getAll();
+            View::render("login/all",$data);
         }   
-        public function formularioInsertarPersonas() {
-            View::render("persona/form");
+        public function formularioInsertarUsuario() {
+            View::render("login/form");
         }
 
-        public function insertarPersona() {
+        public function insertarUsuario() {
             // Primero, recuperamos todos los datos del formulario
             $nombre = $_REQUEST["nombre"];
             $apellidos = $_REQUEST["apellidos"];          
 
-            $result = $this->persona->insert($nombre, $apellidos);
-           
-            $data["listaPersonas"] = $this->persona->getAll();
-            View::render("persona/all", $data);
+            $result = $this->Usuario->insert($nombre, $apellidos);
+    
+            $data["listaUsuarios"] = $this->Usuario->getAll();
+            View::render("Login/all", $data);
 
         }
 
-        public function borrarPersona() {
+        public function borrarUsuario() {
             // Recuperamos el id de la persona que hay que borrar
-            $idPersona = $_REQUEST["idPersona"];
-            // Pedimos al modelo que intente borrar el libro
-            $result = $this->persona->delete($idPersona);
+            $idUsuario = $_REQUEST["idUsuario"];
+            // Pedimos al modelo que intente borrar la tarea
+            $result = $this->Usuario->delete($idUsuario);
  
-            $data["listaPersonas"] = $this->persona->getAll();
-            View::render("persona/all", $data);
+            $data["listaUsuarios"] = $this->Usuario->getAll();
+            View::render("login/all", $data);
 
         }
     } // class

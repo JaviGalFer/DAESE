@@ -1,12 +1,12 @@
 <?php
-// VISTA PARA INSERCIÓN/EDICIÓN DE LIBROS
+// VISTA PARA INSERCIÓN/EDICIÓN DE TAREAS
 
-extract($data);   // Extrae el contenido de $data y lo convierte en variables individuales ($libro, $todosLosAutores y $autoresLibro)
+extract($data);   // Extrae el contenido de $data y lo convierte en variables individuales ($tarea, $todosLosUsuarios y $autoresTarea)
 //echo extract($data);
-echo var_dump($tarea);
+// echo var_dump($tarea);
 //echo (int)$autoresLibro[0]->idPersona;
 // Vamos a usar la misma vista para insertar y modificar. Para saber si hacemos una cosa u otra,
-// usaremos la variable $libro: si existe, es porque estamos modificando un libro. Si no, estamos insertando uno nuevo.
+// usaremos la variable $tarea: si existe, es porque estamos modificando una tarea. Si no, estamos insertando uno nuevo.
 if (isset($tarea)) {   
     echo "<h1>Modificación de libros</h1>";
 } else {
@@ -19,7 +19,7 @@ $idTarea = $tarea->id ?? "";
 $titulo = $tarea->titulo ?? "";
 $descripcion = $tarea->descripcion ?? "";
 
-// Creamos el formulario con los campos del libro
+// Creamos el formulario con los campos de la tarea
 echo "<form action = 'index.php' method = 'get'>
         <input type='hidden' name='idTarea' value='".$idTarea."'>
         Título:<input type='text' name='titulo' value='".$titulo."'><br>
@@ -38,10 +38,10 @@ echo "<form action = 'index.php' method = 'get'>
 // echo "</select>";
 
 // Finalizamos el formulario
-if (isset($libro)) {
-    echo "  <input type='hidden' name='action' value='modificarLibro'>";
+if (isset($tarea)) {
+    echo "  <input type='hidden' name='action' value='modificarTarea'>";
 } else {
-    echo "  <input type='hidden' name='action' value='insertarLibro'>";
+    echo "  <input type='hidden' name='action' value='insertarTarea'>";
 }
 echo "	<input type='submit'></form>";
 echo "<p><a href='index.php'>Volver</a></p>";

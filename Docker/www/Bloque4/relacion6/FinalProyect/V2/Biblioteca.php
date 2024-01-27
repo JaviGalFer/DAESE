@@ -26,7 +26,7 @@ class Biblioteca {
         //---------------------------------- HACER LOGIN USUARIO -------------------------------------
         public function hacerLogin() {
             // Primero, recuperamos todos los datos del formulario
-            echo "hola ". $_REQUEST["usuario"];
+            // echo "hola ". $_REQUEST["usuario"];
             $usuario = $_REQUEST["usuario"];
             $password = $_REQUEST["password"];
             // Pedimos al modelo que intente hacer login
@@ -39,6 +39,14 @@ class Biblioteca {
             }
             // Mostramos la lista de tareas
             $this->mostrarListaTareas();
+        }
+
+        //---------------------------------- CERRAR SESION -------------------------------------
+        public function cerrarSesion() {
+            session_destroy();
+            $_SESSION = array();
+            View::render("login/form");
+            exit();
         }
 
         // --------------------------------- MOSTRAR LISTA DE TAREAS ----------------------------------------
@@ -65,10 +73,19 @@ class Biblioteca {
             $result = $this->Tarea->insert($titulo, $descripcion);
             if ($result == 1) {
                 // Si la inserción de la tarea ha funcionado, continuamos insertando los autores, pero
-                // necesitamos conocer el id de la tarea que acabamos de insertar
+                // necesitamos conocer el id de la tarea que acabamos de insertar y el usuario
+                $usuario = $_SESSION["usuario"];
+                $idUsuario = $this->Usuario->getIdByUsername($usuario);
+                // Obtenemos el ID de la tarea recién insertada
                 $idTarea = $this->Tarea->getMaxId();
+                
+                // Insertamos el usuario asociado a la tarea en la tabla usuarios_tarea
+                $resultUsuariosTarea = $this->Tarea->insertUsuariosTarea($idTarea, array($idUsuario));
+
+
                 // Ya podemos insertar todos los autores junto con el libro en "escriben"
                 // $result = $this->libro->insertAutores($idTarea, $autores);
+                
                 
             } 
             $data["listaTareas"] = $this->Tarea->getAll();

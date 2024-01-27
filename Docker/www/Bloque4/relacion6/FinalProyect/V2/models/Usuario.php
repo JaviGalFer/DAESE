@@ -21,6 +21,11 @@ class Usuario extends Model {
         return $usuariosTarea;
     }
 
+    public function getIdByUsername($username) {
+        $result = $this->db->dataQuery("SELECT id FROM usuarios WHERE usuario = '$username'");
+        return isset($result[0]->id) ? $result[0]->id : null;
+    }
+
     // Inserta un libro. Devuelve 1 si tiene éxito o 0 si falla.
     public function insert($usuario, $password)
     {

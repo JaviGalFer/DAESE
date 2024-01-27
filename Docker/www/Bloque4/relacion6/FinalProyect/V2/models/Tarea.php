@@ -31,7 +31,7 @@ class Tarea extends Model
 
     // Inserta los usuarios de una tarea. Recibe el id de la tarea y la lista de ids de los usuarios en forma de array.
     // Devuelve el número de usuarios insertados con éxito (0 en caso de fallo).
-    public function insertUsuarios($idTarea, $usuarios)
+    public function insertUsuariosTarea($idTarea, $usuarios)
     {
         $correctos = 0;
         foreach ($usuarios as $idUsuario) {

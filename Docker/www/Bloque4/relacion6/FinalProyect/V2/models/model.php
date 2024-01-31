@@ -27,6 +27,8 @@ class Model {
   } 
 
   public function delete($id) {
+    // Eliminamos primero de la base de datos relacional
+    $deleteRelacional = $this->db->dataManipulation("DELETE FROM usuarios_tarea WHERE tarea = $id");
     $result = $this->db->dataManipulation("DELETE FROM ".$this->table." WHERE ".$this->idColumn." = $id");
     return $result;
   }

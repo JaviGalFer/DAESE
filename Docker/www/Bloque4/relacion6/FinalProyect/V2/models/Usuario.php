@@ -36,7 +36,7 @@ class Usuario extends Model {
         // Obtenemos solo los autores del libro que estamos buscando
         $usuariosTarea = $this->db->dataQuery("SELECT usuario, password FROM usuarios WHERE usuario = '$usuario' AND password = '$password'");
         // Vamos a convertir esa lista de autores del libro en un array de ids de personas
-        echo count($usuariosTarea);
+        // echo count($usuariosTarea);
         return count($usuariosTarea);
     }
 }

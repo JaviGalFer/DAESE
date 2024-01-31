@@ -61,9 +61,47 @@ class Tarea extends Model
         return $ok;
     }
 
+    public function getTareasByIdUser($idUsuario){
+        $result = $this->db->dataQuery("SELECT tarea.*
+                                        FROM tarea
+                                        INNER JOIN usuarios_tarea ON tarea.id = usuarios_tarea.tarea
+                                        WHERE usuarios_tarea.usuario = '$idUsuario'
+                                        ORDER BY tarea.titulo");
+
+        return $result;
+    }
+
+    public function getTareasByIdTarea($idTarea, $idUsuario){
+        $result = $this->db->dataQuery("SELECT tarea.*
+                                        FROM tarea
+                                        INNER JOIN usuarios_tarea ON tarea.id = usuarios_tarea.tarea
+                                        WHERE usuarios_tarea.usuario = '$idUsuario'
+                                        AND tarea.id = '$idTarea'
+                                        ORDER BY tarea.titulo");
+        return $result;
+    }
+
+    public function deleteTarea($idTarea, $idUsuario) {
+        // Eliminamos primero de la base de datos relacional
+        // Comprobamos si la tarea pertenece al usuario antes de eliminarla
+        $comprobarUsuario = $this->db->dataQuery("SELECT * FROM usuarios_tarea WHERE tarea = $idTarea AND usuario = $idUsuario");
+
+        if (!empty($comprobarUsuario)) {
+            // Si la tarea pertenece al usuario, procedemos con la eliminación
+            $deleteRelacional = $this->db->dataManipulation("DELETE FROM usuarios_tarea WHERE tarea = $idTarea AND usuario = $idUsuario");
+            $result = $this->db->dataManipulation("DELETE FROM " . $this->table . " WHERE " . $this->idColumn . " = $idTarea");
+            return $result;
+        } else {
+            // Si la tarea no pertenece al usuario, devolvemos un error o manejo adecuado
+                echo "<script>alert('Error: Tarea no encontrada o no pertenece al usuario.');</script>";
+                echo "<script>window.location = 'index.php';</script>";
+                exit();
+        }
+    }
+
     // Busca un texto en las tablas de tareas y usuarios. Devuelve un array de objetos con todos las tareas
     // que cumplen el criterio de búsqueda.
-    public function search($textoBusqueda)
+    public function search($textoBusqueda, $idUsuario)
     {
         
         //Anterior consulta con INNER para mostrar solo que coincida el resultado en ambas tablas del JOIN
@@ -80,9 +118,10 @@ class Tarea extends Model
         $result = $this->db->dataQuery("SELECT * FROM tarea
 					                    LEFT JOIN usuarios_tarea ON tarea.id = usuarios_tarea.tarea
                                         LEFT JOIN usuarios ON usuarios_tarea.usuario = usuarios.id
-					                    WHERE tarea.titulo LIKE '%$textoBusqueda%'
+					                    WHERE (tarea.titulo LIKE '%$textoBusqueda%'
 					                    OR tarea.descripcion LIKE '%$textoBusqueda%'
-					                    OR usuarios.usuario LIKE '%$textoBusqueda%'
+					                    OR usuarios.usuario LIKE '%$textoBusqueda%')
+                                        AND usuarios.id = '$idUsuario'
 					                    ORDER BY tarea.titulo");
 
         

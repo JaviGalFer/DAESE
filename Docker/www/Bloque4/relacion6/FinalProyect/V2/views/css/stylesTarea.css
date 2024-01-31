@@ -1,0 +1,203 @@
+/* Estilos generales */
+
+body {
+    font-family: Arial, sans-serif;
+    color: #616161;
+    background-color: rgb(176, 226, 210);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilos para el header y el nav */
+
+nav {
+    background-color: #4caf93;
+    color: white;
+    text-align: right;
+    padding: 10px;
+    padding-right: 50px;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav a {
+    margin: 0 10px;
+    color: white;
+    
+    text-decoration: none;
+}
+
+
+
+/* Estilos para el contenido */
+/*
+.buscador {
+    text-align: center;
+    margin: 20px 0;
+}
+*/
+
+/* Estilos para el buscador */
+.buscador {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.buscador form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buscador input[type="text"] {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #4caf93;
+    border-radius: 5px;
+}
+
+.buscador input[type="submit"] {
+    background-color: #4caf93;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buscador input[type="submit"]:hover {
+    background-color: rgb(82, 163, 137);
+}
+
+
+
+.container {
+    width: 80%; /* Cambiado a 80% para permitir más espacio */
+    background-color: rgb(219, 243, 233);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+hr {
+    background-color: #4caf93;
+    border: none;
+    height: 2px;
+    margin: 20px 0;
+    width: 100%;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+table, th, td {
+    border: 1px solid #4caf93;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+}
+
+th {
+    background-color: #4caf93;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: #4CAF50;
+}
+
+.logout-link {
+    display: inline-block;
+    color: #fff;
+    background-color: rgb(112, 218, 184);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin-top: 20px;
+    margin: 0;
+}
+
+.logout-link:hover {
+    background-color: rgb(82, 163, 137);
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.action-link {
+    white-space: inline-block;
+    margin-right: 10px;
+    text-align: center;
+    color: #fff;
+    background-color: rgb(112, 218, 184);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin-top: 20px;
+    margin-right: 0;
+}
+
+.action-link:hover {
+    background-color: rgb(82, 163, 137);
+}
+
+@media screen and (max-width: 767px) {
+    .action-link {
+        display: block;
+        margin-top: 900px;
+        margin-right: 0;
+    }
+
+    table {
+        overflow-x: auto;
+    }
+
+    table, th, td {
+        font-size: 12px;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+}
+
+/* Estilos para el footer */
+
+footer {
+    text-align: center;
+    background-color: #4caf93;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

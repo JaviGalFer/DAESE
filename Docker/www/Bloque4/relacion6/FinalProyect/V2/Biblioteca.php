@@ -202,11 +202,30 @@ class Biblioteca {
             }else{
                 // Pedimos al modelo que haga el update
                 $result = $this->Tarea->update($idTarea, $titulo, $descripcion);                    
-                
+                $data["cssFile"] = "stylesTarea.css";
                 $data["listaTareas"] = $this->Tarea->getTareasByIdUser($this->Usuario->getIdByUsername($_SESSION["usuario"]));
                 View::render("tarea/all", $data);
             }            
         }
+
+
+        // --------------------------------- VER DETALLES TAREA ----------------------------------------
+        public function verDetallesTarea() {
+            // Recuperamos los datos de la tarea a modificar
+            $idTarea = $_REQUEST["idTarea"];
+
+            $data["cssFile"] = "stylesDet.css";
+            $data["tarea"] = $this->Tarea->getTareasByIdTarea($idTarea, $this->Usuario->getIdByUsername($_SESSION["usuario"]))[0];
+            
+            if (!$data["tarea"]) {
+                // La tarea no pertenece al usuario actual
+                echo "<script>alert('Error: Tarea no encontrada o no pertenece al usuario.');</script>";
+                echo "<script>window.location = 'index.php';</script>";
+                exit();
+            }
+            View::render("tarea/details", $data);
+        }
+
 
         // --------------------------------- BUSCAR TAREAS ----------------------------------------
 

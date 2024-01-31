@@ -12,10 +12,10 @@ body {
 
 /* Estilos para el header y el nav */
 
-nav {
+.nav {
     background-color: #4caf93;
     color: white;
-    text-align: center;
+    text-align: right;
     padding: 10px;
     width: 100%;
     position: sticky;
@@ -23,15 +23,12 @@ nav {
     z-index: 100;
 }
 
-nav a {
+.nav a {
     margin: 0 10px;
     color: white;
     text-decoration: none;
 }
 
-nav a:hover {
-    text-decoration: underline;
-}
 
 form {
     /* background-color: #ffffff; */
@@ -111,4 +108,101 @@ select:focus {
 select option {
     background-color: white;
     color: #4CAF50;
+}
+
+
+.logout-link {
+    display: inline-block;
+    color: #fff;
+    background-color: rgb(112, 218, 184);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin-top: 20px;
+    margin: 0;
+}
+
+.logout-link:hover {
+    background-color: rgb(82, 163, 137);
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.action-link {
+    white-space: inline-block;
+    margin-right: 10px;
+    text-align: center;
+    color: #fff;
+    background-color: rgb(112, 218, 184);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin-top: 20px;
+    margin-right: 0;
+}
+
+.action-link:hover {
+    background-color: rgb(82, 163, 137);
+}
+
+@media screen and (max-width: 767px) {
+    .action-link {
+        display: block;
+        margin-top: 900px;
+        margin-right: 0;
+    }
+
+    table {
+        overflow-x: auto;
+    }
+
+    table, th, td {
+        font-size: 12px;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+}
+
+/* Estilos para el footer */
+
+/* .footer {
+    text-align: center;
+    background-color: #4caf93;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-top: 100%;
+} */
+
+.footer {
+    position: absolute;
+    text-align: center;
+    background-color: #4caf93;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    bottom: 0;
+}
+
+.container {
+    width: 80%; /* Cambiado a 80% para permitir más espacio */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin: 20px auto;
 }

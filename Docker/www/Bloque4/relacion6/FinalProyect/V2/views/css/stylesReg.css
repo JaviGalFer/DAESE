@@ -10,26 +10,25 @@ body {
     align-items: center;
 }
 
-nav {
+
+.nav {
     background-color: #4caf93;
     color: white;
-    text-align: center;
+    text-align: right;
     padding: 10px;
+    padding-right: 50px;
     width: 100%;
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
-nav a {
+.nav a {
     margin: 0 10px;
     color: white;
     text-decoration: none;
 }
 
-nav a:hover {
-    text-decoration: underline;
-}
 
 form {
     /* background-color: #ffffff; */
@@ -80,4 +79,118 @@ p {
 a {
     text-decoration: none;
     color: #4CAF50;
+}
+
+
+/* Agrega estilos para el select */
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    appearance: none; /* Elimina la apariencia predeterminada del sistema */
+    background: url('data:image/svg+xml;utf8,<svg fill="%234CAF50" height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat; /* Agrega una flecha personalizada */
+    background-position: calc(100% - 12px) center;
+}
+
+/* Agrega estilos cuando el select está enfocado */
+select:focus {
+    border-color: rgb(82, 163, 137);
+    box-shadow: 0 0 10px rgba(82, 163, 137, 0.3);
+}
+
+/* Agrega estilos para las opciones del select */
+select option {
+    background-color: white;
+    color: #4CAF50;
+}
+
+
+.logout-link {
+    display: inline-block;
+    color: #fff;
+    background-color: rgb(112, 218, 184);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin-top: 20px;
+    margin: 0;
+}
+
+.logout-link:hover {
+    background-color: rgb(82, 163, 137);
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.action-link {
+    white-space: inline-block;
+    margin-right: 10px;
+    text-align: center;
+    color: #fff;
+    background-color: rgb(112, 218, 184);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin-top: 20px;
+    margin-right: 0;
+}
+
+.action-link:hover {
+    background-color: rgb(82, 163, 137);
+}
+
+@media screen and (max-width: 767px) {
+    .action-link {
+        display: block;
+        margin-top: 900px;
+        margin-right: 0;
+    }
+
+    table {
+        overflow-x: auto;
+    }
+
+    table, th, td {
+        font-size: 12px;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+}
+
+/* Estilos para el footer */
+
+.footer {
+    position: absolute;
+    text-align: center;
+    background-color: #4caf93;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    bottom: 0;
+}
+
+.container {
+    width: 80%; /* Cambiado a 80% para permitir más espacio */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin: 20px auto;
 }

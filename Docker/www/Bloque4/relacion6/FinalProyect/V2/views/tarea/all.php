@@ -21,22 +21,35 @@ echo "
 
     // Ahora, la tabla con los datos de los libros
     if (count($listaTareas) == 0) {
-      echo "No tienes ná que hacer";
+      echo "No tienes ná que hacer o tarea no encontrada";
     } else {
       echo "<table border ='1'>
               <tr>
-              <th>Id</th>
-              <th>Título</th>
-              <th>Descripción</th>
-              <th>Acciones</th>
-            </tr>";
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+              </tr>";
       foreach ($listaTareas as $fila) {
-        echo "<tr>";
-        echo "<td>" . $fila->titulo . "</td>";
-        echo "<td>" . $fila->descripcion . "</td>";
-        echo "<td><a href='index.php?action=formularioModificarTarea&idTarea=" . $fila->id . "' class='logout-link'>Modificar</a></td>";
-        echo "<td><a href='index.php?action=borrarTarea&idTarea=" . $fila->id . "' class='logout-link'>Borrar</a></td>";
-        echo "</tr>";
+        echo "
+              <tr>
+                <td>" . $fila->titulo . "</td>
+                <td>"; 
+                        $descripcion = $fila->descripcion;
+                        if (strlen($descripcion) > 15) {
+                            $descripcion = substr($descripcion, 0, 15) . '...';
+                            echo $descripcion;
+                        } else {
+                            echo $descripcion;
+                        }
+                
+                
+        echo  "</td>
+                <td>
+                      <a href='index.php?action=verDetallesTarea&idTarea=" . $fila->id . "' class='logout-link'>Ver Detalles</a>
+                      <a href='index.php?action=formularioModificarTarea&idTarea=" . $fila->id . "' class='logout-link'>Modificar</a>
+                      <a href='index.php?action=borrarTarea&idTarea=" . $fila->id . "' class='logout-link'>Borrar</a>
+                </td>
+              </tr>";
       }
       echo "</table>";
     }

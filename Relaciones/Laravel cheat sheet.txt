@@ -1,0 +1,17 @@
+Laravel cheat sheet
+
+composer install
+composer create-project --prefer-dist laravel/laravel apiClase
+
+cd /apiClase
+php artisan sail:install
+npm install
+
+alias sail=./vendor/bin/sail
+sail up -d
+sail artisan make:migration create_productos_table
+sail artisan migrate
+sail artisan make:seeder ProductoSeeder
+php artisan make:seeder ProductoSeeder
+sail artisan migrate:refresh
+sail artisan db:seed

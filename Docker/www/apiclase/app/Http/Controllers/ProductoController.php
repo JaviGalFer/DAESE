@@ -96,6 +96,8 @@ class ProductoController extends Controller
         $producto = Producto::find($id);
         $producto->nombre = $request->nombre;
         $producto->descripcion = $request->descripcion;
+        $producto->categorias()->detach(); // Eliminar categorias del producto (relacion muchos a muchos)
+        
         // $producto->categorias() = null;
         // $producto->save();
         $producto->categorias()->attach($request->categorias);
@@ -112,6 +114,6 @@ class ProductoController extends Controller
     {
         //
         $producto->delete();
-        return response()->json(null, 204); // 204 es para que todo ha ido bien
+        return response()->json(['success' => true], 200); // 200 Para que devuelva OK
     }
 }

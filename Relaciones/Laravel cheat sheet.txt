@@ -15,3 +15,7 @@ sail artisan make:seeder ProductoSeeder
 php artisan make:seeder ProductoSeeder
 sail artisan migrate:refresh
 sail artisan db:seed
+
+
+
+definición api res
